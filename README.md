@@ -75,3 +75,117 @@ produk
 </html>
 ```
 
+### Membuat create.php
+
+```
+<?php 
+	include 'Library.php'; 
+	$model = new Library;
+	if (isset($_POST['submit'])) {
+		# Penulisan Array untuk php 5.2 => $array = array($_POST['kode'], $_POST['nama'], ...);
+		$array = [
+			null,
+			$_POST['kode'],
+			$_POST['nama'],
+			$_POST['harga'],
+		];
+		$model->insert('produk', $array);
+		echo $model->redirect('index.php');
+	}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contoh Simple & Fast CRUD</title>
+</head>
+<body>
+<h3>Tambah Data</h3>
+	<?php include('form.php') ?>
+</body>
+</html>
+```
+
+```
+<form method="post">
+	<table width="50%">
+		<tr>
+			<td width="10%">Kode</td>
+			<td width="1%">:</td>
+			<td>
+				<input type="hidden" name="id" value="<?php echo $item['id'] ?>"></input>
+				<input type="text" name="kode" value="<?php echo $item['kode'] ?>"></input>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%">Nama</td>
+			<td width="1%">:</td>
+			<td>
+				<input type="text" name="nama" value="<?php echo $item['nama'] ?>"></input>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%">Harga</td>
+			<td width="1%">:</td>
+			<td>
+				<input type="number" name="harga" value="<?php echo $item['harga'] ?>"></input>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<input type="submit" name="submit" value="Simpan"></input>
+			</td>
+		</tr>
+	</table>
+</form>
+```
+
+mengapa kita membuat form.php ? karena ketika ada perubahan atau penambahan field pada tabel database atau ada perubahan tipe form, maka kita tidak perlu merubah satu per satu create dan edit nya :)
+
+### Membuat update.php
+
+```
+<?php 
+	include 'Library.php'; 
+	$model = new Library;
+	if (isset($_POST['submit'])) {
+		# Mengecek apakah ID yang diinput itu ada..
+		if($model->find('produk', 'id', $_POST['id']) == 1){
+			# Penulisan Array untuk php 5.2 => $array = array($_POST['kode'], $_POST['nama'], ...);
+			$array = [
+				$_POST['id'],
+				$_POST['kode'],
+				$_POST['nama'],
+				$_POST['harga'],
+			];
+			$model->update('produk', $array, 'id', $_POST['id']);
+			echo $model->redirect('index.php','memperbarui');
+		}
+	}
+	# mendapatkan 'current item'
+	$item = mysqli_fetch_array($model->find('produk', 'id', $_GET['id']));
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contoh Simple & Fast CRUD</title>
+</head>
+<body>
+<h3>Update Data</h3>
+	<?php include('form.php') ?>
+</body>
+</html>
+```
+
+Terakhir..
+### Membuat delete.php
+
+```
+<?php 
+include 'Library.php'; 
+$model = new Library;
+$model->delete('produk', 'id', $_GET['id']);
+echo $model->redirect('index.php','menghapus');
+```
+
