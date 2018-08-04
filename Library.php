@@ -6,7 +6,7 @@ class Library
 	
 	function __construct()
 	{
-		$this->koneksi = mysqli_connect('localhost','root','','belajar');
+		$this->koneksi = mysqli_connect('localhost','root','','nama_database');
 	}
 
 	/**
