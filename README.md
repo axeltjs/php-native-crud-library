@@ -20,11 +20,12 @@ Clone repository ini ke project Anda.
 Ketika sudah membuat Library.php maka Anda sudah dapat memakainya dimanapun sesuai kebutuhan, pada step kali ini saya akan mencontohkannya untuk pemakaian pada index, create, update dan delete.
 Struktur folder yang akan kita gunakan seperti dibawah ini :
 
-!['struktur folder'](https://ibb.co/g5b7BK)
+!['struktur folder'](https://image.ibb.co/cD7ErK/1_vcvp_W_ESv_Q7s_CA4p_B516ug.png)
 
 Oke setelah itu kita coba buat index.php sebagai list index daftar itemnya, sebagai contoh pada kali ini saya akan membuat database dengan tabel seperti dibawah ini :
 
 produk
+
 | Field         | Type          | Extra |
 | ------------- |:-------------:| -----:|
 | id            | int(11)       | AI    |
